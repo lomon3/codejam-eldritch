@@ -60,6 +60,7 @@ body {
     box-shadow: 2px 2px 5px #b4752c;
     margin-right: 2%;
     margin-top: 2%;
+    cursor: pointer;
 }
 
 img.focus {
@@ -160,6 +161,7 @@ img.focus {
     box-shadow: 0px 0px 3px #4320df;
     margin-right: 2%;
     margin-top: 2%;
+    cursor: pointer;
 }
 
 .img_Card {
