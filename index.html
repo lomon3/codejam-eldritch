@@ -7,56 +7,59 @@
     <link href="assets/favicon.ico" rel="shortcut icon" />
     <link rel="stylesheet" href="css/owfont-regular.css" />
     <link rel="stylesheet" href="css/style.css" />
-    <title>MomentumMF</title>
+    <title>Eldritch Horror Codejam</title>
 </head>
 
 <body>
 
     <div class="column_Ancients">
-        <img src="./assets/Ancients/Azathoth.png" class="img_Ancients" alt="Azathoth" id="Azathoth">
-        <img src="./assets/Ancients/Cthulthu.png" class="img_Ancients" alt="Cthulthu" id="Cthulthu">
+        <img src="./assets/Ancients/Azathoth.png" class="img_Ancients" alt="Azathoth" id="azathoth">
+        <img src="./assets/Ancients/Cthulthu.png" class="img_Ancients" alt="Cthulthu" id="cthulthu">
         <img src="./assets/Ancients/iogSothoth.png" class="img_Ancients" alt="iogSothoth" id="iogSothoth">
         <img src="./assets/Ancients/shubNiggurath.png" class="img_Ancients" alt="shubNiggurath" id="shubNiggurath">
     </div>
 
     <div class="column_Tracker">
-        <div class="tracker_wrapper">
+        <div class="tracker_wrapper" id="tracker_wrapper">
             <div class="stages">
                 <p>Первая стадия</p>
                 <div class="dots-container">
-                    <div class="dot green">1</div>
-                    <div class="dot brown">2</div>
-                    <div class="dot blue">3</div>
+                    <div class="dot green">0</div>
+                    <div class="dot brown">0</div>
+                    <div class="dot blue">0</div>
                 </div>
             </div>
             <div class="stages">
                 <p>Вторая стадия</p>
                 <div class="dots-container">
-                    <div class="dot green">1</div>
-                    <div class="dot brown">2</div>
-                    <div class="dot blue">3</div>
+                    <div class="dot green">0</div>
+                    <div class="dot brown">0</div>
+                    <div class="dot blue">0</div>
                 </div>
             </div>
             <div class="stages">
                 <p>Третья стадия</p>
                 <div class="dots-container">
-                    <div class="dot green">1</div>
-                    <div class="dot brown">2</div>
-                    <div class="dot blue">3</div>
+                    <div class="dot green">0</div>
+                    <div class="dot brown">0</div>
+                    <div class="dot blue">0</div>
                 </div>
             </div>
         </div>
-        <button name="button" class="button_difficulty" role="button">Очень легкий</button>
-        <button name="button" class="button_difficulty" role="button">Легкий</button>
-        <button name="button" class="button_difficulty" role="button">Средний</button>
-        <button name="button" class="button_difficulty" role="button">Высокий</button>
-        <button name="button" class="button_difficulty" role="button">Очень высокий</button>
+        <button name="button" class="button_difficulty start" role="button" id="start">Замешать</button>
+        <button name="button" class="button_difficulty" role="button" id="Veasy">Очень легкий</button>
+        <button name="button" class="button_difficulty" role="button" id="easy">Легкий</button>
+        <button name="button" class="button_difficulty" role="button" id="normal">Средний</button>
+        <button name="button" class="button_difficulty" role="button" id="hard">Высокий</button>
+        <button name="button" class="button_difficulty" role="button" id="Vhard">Очень высокий</button>
     </div>
 
     <div class="column_Deck">
         <img src="./assets/mythicCardBackground.png" class="img_CardBack" alt="CardBackground" id="CardBack">
-        <img src="https://raw.githubusercontent.com/lomon3/codejam-eldritch/codejam-eldritch/assets/MythicCards/blue/blue1.png?token=GHSAT0AAAAAABUUAQBOFL2YCSFSBRCMXQ2IYYD3KNA" class="img_Card" alt="Card" id="Card">
+        <img src="https://raw.githubusercontent.com/lomon3/codejam-eldritch/codejam-eldritch/assets/mythicCard.png" class="img_Card" alt="Card" id="Card">
     </div>
+    <script src="./data/ancients.js"></script>
+    <script src="./data//cardsD.js"></script>
     <script src="./js/log.js"></script>
 </body>
 

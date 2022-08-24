@@ -27,7 +27,7 @@ body {
     font-size: 80%;
     color: #fff;
     text-align: center;
-    background: url("../assets/img/bg.jpg") center/cover, rgba(100, 100, 100, 0.486);
+    background: url("../assets/img/bg.jpg") center/cover, rgba(109, 109, 109, 0.445);
     background-blend-mode: multiply;
     transition: background-image 1s ease-in-out;
 }
@@ -109,6 +109,13 @@ img.focus {
     box-shadow: 0px 0px 15px #ff0c0c;
 }
 
+.start {
+    display: none;
+    margin-top: 10%;
+    margin-bottom: 10%;
+    color: #ff0000;
+}
+
 .tracker_wrapper {
     width: 90%;
     margin-top: 5%;
@@ -155,6 +162,7 @@ img.focus {
 }
 
 .img_CardBack {
+    display: none;
     height: 45vh;
     border: 1px solid #4320df;
     border-radius: 4%;
@@ -165,6 +173,7 @@ img.focus {
 }
 
 .img_Card {
+    display: none;
     height: 45vh;
     border: none;
     border-radius: 4%;
