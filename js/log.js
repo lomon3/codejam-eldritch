@@ -1,28 +1,6 @@
 const green = document.getElementById('tracker_wrapper').querySelectorAll(":scope > .stages > .dots-container > .dot.green");
 const brown = document.getElementById('tracker_wrapper').querySelectorAll(":scope > .stages > .dots-container > .dot.brown");
 const blue = document.getElementById('tracker_wrapper').querySelectorAll(":scope > .stages > .dots-container > .dot.blue");
-
-let deck = {
-    firstStage: {
-        greenCards: 0,
-        blueCards: 0,
-        brownCards: 0,
-    },
-    secondStage: {
-        greenCards: 0,
-        blueCards: 0,
-        brownCards: 0,
-    },
-    thirdStage: {
-        greenCards: 0,
-        blueCards: 0,
-        brownCards: 0,
-    },
-    greenArray: [],
-    blueArray: [],
-    brownArray: [],
-};
-
 const startButton = document.getElementById('start');
 const CARD = document.getElementById('Card');
 const CARDBACK = document.getElementById('CardBack');
@@ -30,23 +8,75 @@ const CARDBACK = document.getElementById('CardBack');
 let ancient = null;
 let diff = null;
 
+let deck = {
+    firstStage: {
+        greenCards: [],
+        brownCards: [],
+        blueCards: [],
+
+    },
+    secondStage: {
+        greenCards: [],
+        brownCards: [],
+        blueCards: [],
+
+    },
+    thirdStage: {
+        greenCards: [],
+        brownCards: [],
+        blueCards: [],
+
+    },
+};
+
 function get_deck(imageID, difficult) {
     cleanDeck();
     let stages = ancientsData.filter(function(val) {
         return val.id == imageID;
     })[0];
-    deck.firstStage.greenCards = stages.firstStage.greenCards;
-    deck.firstStage.brownCards = stages.firstStage.brownCards;
-    deck.firstStage.blueCards = stages.firstStage.blueCards;
+    let SUMgreenCards = stages.firstStage.greenCards + stages.secondStage.greenCards + stages.thirdStage.greenCards;
+    let SUMbrownCards = stages.firstStage.brownCards + stages.secondStage.brownCards + stages.thirdStage.brownCards;
+    let SUMblueCards = stages.firstStage.blueCards + stages.secondStage.blueCards + stages.thirdStage.blueCards;
+    let greenArray = [],
+        brownArray = [],
+        blueArray = [];
+    console.log(SUMgreenCards + ' ' + SUMbrownCards + ' ' + SUMblueCards);
 
-    deck.secondStage.greenCards = stages.secondStage.greenCards;
-    deck.secondStage.brownCards = stages.secondStage.brownCards;
-    deck.secondStage.blueCards = stages.secondStage.blueCards;
+    for (let i = 0; i < SUMgreenCards; i++) {
+        let x = 'green' + Math.floor(Math.random() * 18);
+        if (!(greenArray.includes(x))) {
+            greenArray.push(x);
+        } else { i--; }
+    }
 
-    deck.thirdStage.greenCards = stages.thirdStage.greenCards;
-    deck.thirdStage.brownCards = stages.thirdStage.brownCards;
-    deck.thirdStage.blueCards = stages.thirdStage.blueCards;
-    getArrayCards();
+    for (let i = 0; i < SUMbrownCards; i++) {
+        let x = 'brown' + Math.floor(Math.random() * 21);
+        if (!(brownArray.includes(x))) {
+            brownArray.push(x);
+        } else { i--; }
+    }
+
+    for (let i = 0; i < SUMblueCards; i++) {
+        let x = 'blue' + Math.floor(Math.random() * 12);
+        if (!(blueArray.includes(x))) {
+            blueArray.push(x);
+        } else { i--; }
+    }
+
+    deck.firstStage.greenCards = greenArray.splice(0, stages.firstStage.greenCards);
+    deck.secondStage.greenCards = greenArray.splice(0, stages.secondStage.greenCards);
+    deck.thirdStage.greenCards = greenArray.splice(0, stages.thirdStage.greenCards);
+
+    deck.firstStage.blueCards = blueArray.splice(0, stages.firstStage.blueCards);
+    deck.secondStage.blueCards = blueArray.splice(0, stages.secondStage.blueCards);
+    deck.thirdStage.blueCards = blueArray.splice(0, stages.thirdStage.blueCards);
+
+    deck.firstStage.brownCards = brownArray.splice(0, stages.firstStage.brownCards);
+    deck.secondStage.brownCards = brownArray.splice(0, stages.secondStage.brownCards);
+    deck.thirdStage.brownCards = brownArray.splice(0, stages.thirdStage.brownCards);
+
+    console.log(deck);
+
     /*  
         let card = cardsData.filter(function(i) {
             return i.difficulty == difficult && i.color == 'green';
@@ -56,76 +86,78 @@ function get_deck(imageID, difficult) {
 
 }
 
-function getArrayCards() {
-    let greenCards = deck.firstStage.greenCards + deck.secondStage.greenCards + deck.thirdStage.greenCards;
-    let brownCards = deck.firstStage.brownCards + deck.secondStage.brownCards + deck.thirdStage.brownCards;
-    let blueCards = deck.firstStage.blueCards + deck.secondStage.blueCards + deck.thirdStage.blueCards;
-
-    console.log(greenCards + ' ' + brownCards + ' ' + blueCards);
-
-    for (let i = 0; i < greenCards; i++) {
-        let x = 'green' + Math.floor(Math.random() * 19);
-        if (!(deck.greenArray.includes(x))) {
-            deck.greenArray.push(x);
-        } else { i--; }
-    }
-    console.log(deck.greenArray);
-
-    for (let i = 0; i < brownCards; i++) {
-        let x = 'brown' + Math.floor(Math.random() * 22);
-        if (!(deck.brownArray.includes(x))) {
-            deck.brownArray.push(x);
-        } else { i--; }
-    }
-    console.log(deck.brownArray);
-
-    for (let i = 0; i < blueCards; i++) {
-        let x = 'green' + Math.floor(Math.random() * 13);
-        if (!(deck.blueArray.includes(x))) {
-            deck.blueArray.push(x);
-        } else { i--; }
-    }
-    console.log(deck.blueArray);
-
-}
-
 function UpdTracker() {
-    green[0].textContent = deck.firstStage.greenCards;
-    brown[0].textContent = deck.firstStage.brownCards;
-    blue[0].textContent = deck.firstStage.blueCards;
+    green[0].textContent = deck.firstStage.greenCards.length;
+    brown[0].textContent = deck.firstStage.brownCards.length;
+    blue[0].textContent = deck.firstStage.blueCards.length;
 
-    green[1].textContent = deck.secondStage.greenCards;
-    brown[1].textContent = deck.secondStage.brownCards;
-    blue[1].textContent = deck.secondStage.blueCards;
+    green[1].textContent = deck.secondStage.greenCards.length;
+    brown[1].textContent = deck.secondStage.brownCards.length;
+    blue[1].textContent = deck.secondStage.blueCards.length;
 
-    green[2].textContent = deck.thirdStage.greenCards;
-    brown[2].textContent = deck.thirdStage.brownCards;
-    blue[2].textContent = deck.thirdStage.blueCards;
+    green[2].textContent = deck.thirdStage.greenCards.length;
+    brown[2].textContent = deck.thirdStage.brownCards.length;
+    blue[2].textContent = deck.thirdStage.blueCards.length;
 }
 
 function cleanDeck() {
     for (let a in deck) {
         for (let b in deck[a]) {
-            deck[a][b] = 0;
+            deck[a][b].length = 0;
         }
     }
-    deck.greenArray.length = 0;
-    deck.brownArray.length = 0;
-    deck.blueArray.length = 0;
     CARD.src = "https://raw.githubusercontent.com/lomon3/codejam-eldritch/codejam-eldritch/assets/mythicCard.png";
 }
 
+function getCard(obj) {
+    let arrOfStage = [];
+    for (key in obj) {
+        if (obj[key].length > 0) {
+            obj[key].forEach(element => {
+                arrOfStage.push(element);
+            });
+        }
+    }
+    if (arrOfStage.length > 0) {
+        let numOfCard = Math.floor(Math.random() * (arrOfStage.length));
+        for (key in obj) {
+            let indexForDell = obj[key].indexOf(arrOfStage[numOfCard]);
+            if (indexForDell !== -1) {
+                obj[key].splice(indexForDell, 1);
+            }
+        }
+        return arrOfStage[numOfCard];
+    } else return null;
+}
+
+function takeCard() {
+    let fromFirsArray = getCard(deck.firstStage);
+    if (fromFirsArray != null) {
+        console.log(deck.firstStage);
+        CARD.src = `https://raw.githubusercontent.com/lomon3/codejam-eldritch/codejam-eldritch/assets/MythicCards/cards/${fromFirsArray}.png`;
+        UpdTracker();
+    } else {
+        let fromSecondArray = getCard(deck.secondStage);
+        if (fromSecondArray != null) {
+            CARD.src = `https://raw.githubusercontent.com/lomon3/codejam-eldritch/codejam-eldritch/assets/MythicCards/cards/${fromSecondArray}.png`;
+            UpdTracker();
+        } else {
+            let fromTheirdArray = getCard(deck.thirdStage);
+            if (fromTheirdArray != null) {
+                CARD.src = `https://raw.githubusercontent.com/lomon3/codejam-eldritch/codejam-eldritch/assets/MythicCards/cards/${fromTheirdArray}.png`;
+                UpdTracker();
+            } else CARD.src = "https://raw.githubusercontent.com/lomon3/codejam-eldritch/codejam-eldritch/assets/mythicCard.png";
+        }
+    };
+
+}
+
 CARDBACK.addEventListener("click", () => {
-    CARD.src = "https://raw.githubusercontent.com/lomon3/codejam-eldritch/codejam-eldritch/assets/mythicCard.png";
-    CARD.style.display = "block";
-    CARDBACK.style.display = "block";
-    get_deck(ancient, diff);
-    UpdTracker();
+    takeCard();
 });
 
 startButton.addEventListener("click", () => {
     CARD.style.display = "block";
-    console.log("style.display");
     CARDBACK.style.display = "block";
     get_deck(ancient, diff);
     UpdTracker();
@@ -138,7 +170,6 @@ document.addEventListener('click', (e) => {
     console.log(`ancient: ${ancient}, difficulty: ${diff}`);
     /* clean deck */
     cleanDeck();
-
     UpdTracker();
     /* update map selection */
     for (let i = 0; i < 6; i++) {
