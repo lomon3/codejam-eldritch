@@ -1,5 +1,5 @@
 const cardsData = [{
-        id: 'blue0',
+        id: 'blue1',
         difficulty: 'hard',
         color: 'blue'
     },
@@ -54,12 +54,12 @@ const cardsData = [{
         color: 'blue'
     },
     {
-        id: 'blue1',
+        id: 'blue0',
         difficulty: 'normal',
         color: 'blue'
     },
     {
-        id: 'brown0',
+        id: 'brown1',
         difficulty: 'normal',
         color: 'brown'
     },
@@ -159,7 +159,7 @@ const cardsData = [{
         color: 'brown'
     },
     {
-        id: 'brown1',
+        id: 'brown0',
         difficulty: 'easy',
         color: 'brown'
     },

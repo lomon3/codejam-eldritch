@@ -29,7 +29,41 @@ let deck = {
     },
 };
 
-function get_deck(imageID, difficult) {
+function randArr(summ, color, count, difficult) {
+    let array = [];
+    if (difficult == 'easy') {
+        for (let i = 0; i < summ; i++) {
+            let x = color + Math.floor(Math.random() * count);
+            let card = cardsData.filter(function(i) {
+                return i.id == x;
+            })[0].difficulty;
+            if (!(array.includes(x)) && card !== 'hard') {
+                array.push(x);
+            } else { i--; };
+        }
+
+    } else if (difficult == 'normal') {
+        for (let i = 0; i < summ; i++) {
+            let x = color + Math.floor(Math.random() * count);
+            if (!(array.includes(x))) {
+                array.push(x);
+            } else { i--; };
+        }
+    } else if (difficult == 'hard') {
+        for (let i = 0; i < summ; i++) {
+            let x = color + Math.floor(Math.random() * count);
+            let card = cardsData.filter(function(i) {
+                return i.id == x;
+            })[0].difficulty;
+            if (!(array.includes(x)) && card !== 'easy') {
+                array.push(x);
+            } else { i--; };
+        }
+    }
+    return array;
+}
+
+function get_deck(imageID) {
     cleanDeck();
     let stages = ancientsData.filter(function(val) {
         return val.id == imageID;
@@ -37,31 +71,14 @@ function get_deck(imageID, difficult) {
     let SUMgreenCards = stages.firstStage.greenCards + stages.secondStage.greenCards + stages.thirdStage.greenCards;
     let SUMbrownCards = stages.firstStage.brownCards + stages.secondStage.brownCards + stages.thirdStage.brownCards;
     let SUMblueCards = stages.firstStage.blueCards + stages.secondStage.blueCards + stages.thirdStage.blueCards;
-    let greenArray = [],
-        brownArray = [],
-        blueArray = [];
-    console.log(SUMgreenCards + ' ' + SUMbrownCards + ' ' + SUMblueCards);
+    let greenArray = randArr(SUMgreenCards, 'green', 18, diff),
+        brownArray = randArr(SUMbrownCards, 'brown', 21, diff),
+        blueArray = randArr(SUMblueCards, 'blue', 12, diff);
 
-    for (let i = 0; i < SUMgreenCards; i++) {
-        let x = 'green' + Math.floor(Math.random() * 18);
-        if (!(greenArray.includes(x))) {
-            greenArray.push(x);
-        } else { i--; }
-    }
-
-    for (let i = 0; i < SUMbrownCards; i++) {
-        let x = 'brown' + Math.floor(Math.random() * 21);
-        if (!(brownArray.includes(x))) {
-            brownArray.push(x);
-        } else { i--; }
-    }
-
-    for (let i = 0; i < SUMblueCards; i++) {
-        let x = 'blue' + Math.floor(Math.random() * 12);
-        if (!(blueArray.includes(x))) {
-            blueArray.push(x);
-        } else { i--; }
-    }
+    //console.log(SUMgreenCards + ' ' + SUMbrownCards + ' ' + SUMblueCards);
+    console.log(greenArray);
+    console.log(brownArray);
+    console.log(blueArray);
 
     deck.firstStage.greenCards = greenArray.splice(0, stages.firstStage.greenCards);
     deck.secondStage.greenCards = greenArray.splice(0, stages.secondStage.greenCards);
@@ -76,13 +93,6 @@ function get_deck(imageID, difficult) {
     deck.thirdStage.brownCards = brownArray.splice(0, stages.thirdStage.brownCards);
 
     console.log(deck);
-
-    /*  
-        let card = cardsData.filter(function(i) {
-            return i.difficulty == difficult && i.color == 'green';
-        })[0].id;
-        CARD.src = "https://raw.githubusercontent.com/lomon3/codejam-eldritch/codejam-eldritch/assets/MythicCards/blue/blue10.png";
-        console.log(card); */
 
 }
 
@@ -159,7 +169,7 @@ CARDBACK.addEventListener("click", () => {
 startButton.addEventListener("click", () => {
     CARD.style.display = "block";
     CARDBACK.style.display = "block";
-    get_deck(ancient, diff);
+    get_deck(ancient);
     UpdTracker();
 });
 
