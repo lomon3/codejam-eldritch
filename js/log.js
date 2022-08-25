@@ -30,6 +30,7 @@ let deck = {
 };
 
 function randArr(summ, color, count, difficult) {
+
     let array = [];
     if (difficult == 'easy') {
         for (let i = 0; i < summ; i++) {
@@ -56,6 +57,40 @@ function randArr(summ, color, count, difficult) {
                 return i.id == x;
             })[0].difficulty;
             if (!(array.includes(x)) && card !== 'easy') {
+                array.push(x);
+            } else { i--; };
+        }
+    } else if (difficult == 'Veasy') {
+        for (let i = 0; i < summ; i++) {
+            let x = color + Math.floor(Math.random() * count);
+            let card = cardsData.filter(function(i) {
+                return i.id == x;
+            })[0].difficulty;
+
+            if ((!(array.includes(x))) && (((card == 'easy')) || ((color == 'blue') && (card == 'easy')) || ((color == 'green') && (card == 'normal') && (array.length > 4)) || ((color == 'brown') && (card == 'normal') && (array.length > 4)))) {
+                array.push(x);
+            } else { i--; };
+        }
+    } else if (difficult == 'Vhard') {
+        for (let i = 0; i < summ; i++) {
+            let x = color + Math.floor(Math.random() * count);
+            let card = cardsData.filter(function(i) {
+                return i.id == x;
+            })[0].difficulty;
+
+            let it_notInArr = !(array.includes(x)),
+                it_hard = (card == 'hard'),
+                it_normal = (card == 'normal'),
+                it_less6 = (array.length > 4),
+                it_green = (color == 'green'),
+                it_brown = (color == 'brown'),
+                it_blue = (color == 'blue');
+
+            let it2 = it_blue && it_hard;
+            let it3 = it_green && it_normal && it_less6;
+            let it4 = it_brown && it_normal && it_less6;
+
+            if (it_notInArr && ((it_hard) || (it2) || (it3) || (it4))) {
                 array.push(x);
             } else { i--; };
         }
